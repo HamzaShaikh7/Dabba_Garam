@@ -207,9 +207,16 @@ def load_postgreSQL(df):
             record_number = record_number + 1
 
         conn.commit()
+        remove_columns()
+        info(df)
+        time.sleep(20)
 
     except Exception as error:
         print(error)
+    except NameError as error:
+        print("Error : Entered month not present in DataBase, please enter a correct month.")
+    except psycopg2.OperationalError as error_pass:
+        print('\nError : Password incorrect.')
 
     finally:
         if cur is not None:
@@ -256,6 +263,3 @@ if __name__ == "__main__":
     else:
         df = cleaning_data(dfi)
         load_postgreSQL(df)
-        remove_columns()
-        info(df)
-        time.sleep(20)

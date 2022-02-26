@@ -254,6 +254,10 @@ def load_postgreSQL(df):
         
     except Exception as error:
         print(error)
+    except NameError as error:
+        print("Error : Entered month not present in DataBase, please enter a correct month.")
+    except psycopg2.OperationalError as error_pass:
+        print('\nError : Password incorrect.')
 
     finally:
         if cur is not None:
