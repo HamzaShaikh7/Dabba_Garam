@@ -75,8 +75,10 @@ def postgresql_check():
 
     except NameError as error:
         print("Error : Entered month not present in DataBase, please enter a correct month.")
+        time.sleep(10)
     except psycopg2.OperationalError as error_pass:
         print('\nError : Password incorrect.')
+        time.sleep(10)
 
 
     finally:
