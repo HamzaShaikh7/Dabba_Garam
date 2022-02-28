@@ -154,9 +154,7 @@ def cleaning_data(df):
             'Quantity',
             'Customer name',
             'Customer mobile',
-            'Customer email',
             'Store name',
-            'Currency',
             'Subtotal',
             'Total',
             'Discount',
@@ -168,7 +166,6 @@ def cleaning_data(df):
             'Service mode',
             'Status',
             'Platform',
-            'App version',
             'Delivery slot start',
             'Delivery slot end',
             'Cancel reason',
@@ -238,7 +235,7 @@ def load_postgreSQL(df):
             )
         cur = conn.cursor()
 
-        insert_script = '''INSERT INTO delivery_report VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+        insert_script = '''INSERT INTO delivery_report VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
 
         record_number = 1
         for record in df.values.tolist():
