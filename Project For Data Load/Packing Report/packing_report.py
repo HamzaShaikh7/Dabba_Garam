@@ -119,7 +119,7 @@ def cleaning_data(dfi):
 
 
     # Getting only selected columns.....
-    df = df[['Restaurant ID','Accepted Time','Mark Ready Time']]
+    df = df[['Restaurant ID','Accepted Time','Mark Ready Time','Order ID']]
 
 
     # Removing Nan from Accepted Time & Mark Ready Time...
@@ -171,7 +171,7 @@ def cleaning_data(dfi):
 
 
     # Getting usefull data...
-    df = df[['Restaurant ID','Accepted Time','Mark Ready Time','Date','Year','Months','Time Diff','Outlet','Time Range']]
+    df = df[['Order ID','Restaurant ID','Accepted Time','Mark Ready Time','Date','Year','Months','Time Diff','Outlet','Time Range']]
 
     return df
 
@@ -196,7 +196,7 @@ def load_postgreSQL(df):
         cur = conn.cursor()
 
 
-        insert_script = '''INSERT INTO packing_report VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+        insert_script = '''INSERT INTO packing_report VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
 
 
         record_number = 1
