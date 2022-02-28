@@ -56,7 +56,7 @@ def postgresql_check():
             print(f'Last Updated date of {str(month)[2:5]} month : {value}')
             break
 
-        select_outlet = '''SELECT DISTINCT(location) FROM packing_report WHERE months = %s AND date = %s ORDER BY location'''
+        select_outlet = '''SELECT DISTINCT(outlet) FROM packing_report WHERE months = %s AND date = %s ORDER BY outlet'''
         outlet = [last_month, value]
 
         cur.execute(select_outlet, outlet)

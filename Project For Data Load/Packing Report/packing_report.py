@@ -119,7 +119,7 @@ def cleaning_data(dfi):
 
 
     # Getting only selected columns.....
-    df = df[['Restaurant ID','Accepted Time','Mark Ready Time','Order ID']]
+    df = df[['Order ID','Restaurant ID','Accepted Time','Mark Ready Time']]
 
 
     # Removing Nan from Accepted Time & Mark Ready Time...
