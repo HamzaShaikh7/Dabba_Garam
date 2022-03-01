@@ -5,7 +5,9 @@ import psycopg2
 import os
 import time
 import getpass
-
+import win32com.client as client
+import openpyxl
+import datetime
 
 
 
@@ -34,6 +36,21 @@ def login_detail():
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 
+def file_format():
+    excel = client.Dispatch("excel.application")
+
+
+    for file in os.listdir("C:\\Users\\a\\Downloads\\New folder\\"):
+        filename, fileextension = os.path.splitext(file)
+        wb = excel.Workbooks.Open("C:\\Users\\a\\Downloads\\New folder\\"+file)
+        output_path = "C:\\Users\\a\\Downloads\\New folder\\"+filename
+        wb.SaveAs(output_path,51)
+        wb.Close()
+
+    excel.Quit()
+
+#-------------------------------------------------------------------------------------------------------------------------------------------
+
 def import_data():
         df_order_summary = pd.DataFrame()
         if len(os.listdir(Files_location) ) == 0:
@@ -41,15 +58,18 @@ def import_data():
                 df = pd.DataFrame()
                 return df
         else:
-                stock_files = sorted(glob(Files_location+'\\\\*.csv'))
+                stock_files = sorted(glob(Files_location+'\\\\*.xlsx'))
                 for file in stock_files:
-                        df = pd.read_csv(file)
+                        df = pd.read_excel(file)
                         outlet = str(str(list(str(list(df.iloc[0,1:2]))[2:-2].split("("))[1:]))
                         outlet = outlet[2:].strip()[:outlet.find(')')]
                         outlet = outlet[:outlet.find(')')]
                         df = df[4:]
                         df = add_outlet(df, outlet)
                         df_order_summary = pd.concat([df_order_summary,df], ignore_index = True)
+                stock_files = sorted(glob(Files_location+'\\\\*.xlsx'))
+                for i in stock_files:
+                    os.remove(i)
                 return df_order_summary
 
 #-----------------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +172,7 @@ def load_postgreSQL(df):
 #-----------------------------------------------------------------------------------------------------------------------------------
 
 def remove_columns():
-    stock_files = sorted(glob(Files_location+'\\\\*.csv'))
+    stock_files = sorted(glob(Files_location+'\\\\*.xls'))
     for i in stock_files:
         os.remove(i)
 
@@ -183,6 +203,7 @@ def info(df):
 
 if __name__ == "__main__":
 
+    file_format()
     __password = login_detail()
     dfi = import_data()
     if len(dfi) == 0:
