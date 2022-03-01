@@ -127,7 +127,7 @@ def load_postgreSQL(df):
         for record in df.values.tolist():
             cur.execute(insert_script,record)
 
-            print(record_number,'[ "'+str(record[0])+'" , "'+str(record[1])+'" , "'+str(record[-1]+'" ]'))
+            print(record_number,record[:4])
             record_number = record_number + 1
 
         conn.commit()
