@@ -89,7 +89,7 @@ def postgresql_check():
                         ON
                         order_summary.client_orderid  = delivery_report.order_id
                     WHERE
-                        order_summary.date = '2022-02-28'
+                        order_summary.date = '2022-03-01'
                     GROUP BY
                         order_wise_cunsumption.outlet,
                         delivery_report.payment_mode,
