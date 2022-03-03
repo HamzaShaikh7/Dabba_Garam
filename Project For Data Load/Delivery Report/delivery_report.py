@@ -194,18 +194,18 @@ def cleaning_data(df):
 def creating_months(df):
   # create a list of our conditions
     conditions = [
-        (df['Months'] == 1),
-        (df['Months'] == 2),
-        (df['Months'] == 3),
-        (df['Months'] == 4),
-        (df['Months'] == 5),
-        (df['Months'] == 6),
-        (df['Months'] == 7),
-        (df['Months'] == 8),
-        (df['Months'] == 9),
-        (df['Months'] == 10),
-        (df['Months'] == 11),
-        (df['Months'] == 12),
+        (df['Months'] == '01'),
+        (df['Months'] == '02'),
+        (df['Months'] == '03'),
+        (df['Months'] == '04'),
+        (df['Months'] == '05'),
+        (df['Months'] == '06'),
+        (df['Months'] == '07'),
+        (df['Months'] == '08'),
+        (df['Months'] == '09'),
+        (df['Months'] == '10'),
+        (df['Months'] == '11'),
+        (df['Months'] == '12'),
         ]
 
     # create a list of the values we want to assign for each condition...
