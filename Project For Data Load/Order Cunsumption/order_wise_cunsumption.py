@@ -19,7 +19,8 @@ __port = 5432
 __password = str()
 __All_Files = str()
 
-Files_location = str(input("Enter folder location : ")).replace('\\','\\\\')
+Files_location_temp = str(input("Enter folder location : "))
+Files_location = Files_location_temp.replace('\\','\\\\')
 
 # Login detail Function...
 def login_detail():
@@ -40,10 +41,10 @@ def file_format():
     excel = client.Dispatch("excel.application")
 
 
-    for file in os.listdir("C:\\Users\\a\\Downloads\\New folder\\"):
+    for file in os.listdir(f"{Files_location}\\\\"):
         filename, fileextension = os.path.splitext(file)
-        wb = excel.Workbooks.Open("C:\\Users\\a\\Downloads\\New folder\\"+file)
-        output_path = "C:\\Users\\a\\Downloads\\New folder\\"+filename
+        wb = excel.Workbooks.Open(f"{Files_location}\\\\"+file)
+        output_path = f"{Files_location_temp}\\"+filename
         wb.SaveAs(output_path,51)
         wb.Close()
 
