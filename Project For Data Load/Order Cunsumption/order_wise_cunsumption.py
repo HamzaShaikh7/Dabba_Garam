@@ -205,11 +205,11 @@ def info(df):
 if __name__ == "__main__":
 
     file_format()
-    __password = login_detail()
+    # __password = login_detail()
     dfi = import_data()
     if len(dfi) == 0:
         print("Application terminating...")
         time.sleep(7)
     else:
         df = cleaning_data(dfi)
-        load_postgreSQL(df)
+        # load_postgreSQL(df)
