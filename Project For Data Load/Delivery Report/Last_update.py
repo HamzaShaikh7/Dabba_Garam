@@ -54,7 +54,7 @@ def postgresql_check():
             value = str(x)[1:3]
             print(f'Last Updated date of {str(month)[2:5]} month : {value}')
             break
-
+        value = value[:-1]
         select_outlet = '''SELECT DISTINCT(outlet) FROM delivery_report WHERE months = %s AND date = %s ORDER BY outlet'''
         outlet = [last_month, value]
 
