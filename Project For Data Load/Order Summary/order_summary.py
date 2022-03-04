@@ -125,6 +125,8 @@ def cleaning_data(df):
         df['Date'] = pd.to_datetime(df['Created']).dt.strftime('%Y-%m-%d')
         df['Created'] = pd.to_datetime(df['Created']).dt.strftime('%m/%d/%Y %H:%M')
 
+        df.drop_duplicates(subset = 'Order No.' , keep = 'first' , inplace = True)
+
         df = df[['Order No.',
                 'Client OrderID',
                 'Order Type',
