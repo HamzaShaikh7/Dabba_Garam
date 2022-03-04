@@ -118,7 +118,8 @@ def cleaning_data(df):
 
         df['outlet'] = df['outlet'].replace('Andheri-W','Andheri West')
 
-        df.to_csv('C:\\Users\\a\\Downloads\\order_wise_cunsumptoin.csv', index = False)
+        df = df[df["Order_No"].str.contains("Cancelled") != True]
+
         return df
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,11 +207,11 @@ def info(df):
 if __name__ == "__main__":
 
     file_format()
-    # __password = login_detail()
+    __password = login_detail()
     dfi = import_data()
     if len(dfi) == 0:
         print("Application terminating...")
         time.sleep(7)
     else:
         df = cleaning_data(dfi)
-        # load_postgreSQL(df)
+        load_postgreSQL(df)
