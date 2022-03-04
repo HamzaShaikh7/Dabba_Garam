@@ -83,9 +83,9 @@ def add_outlet(df,outlet):
 
 def cleaning_data(df):
 
-        df = df
+        df = df.copy()
 
-        ls = ['Order No.',
+        ls = ['Order_No',
                 'Order Type',
                 'Payment Type',
                 'Order Date',
@@ -103,21 +103,22 @@ def cleaning_data(df):
         
         df.columns = ls
 
-        df.dropna(subset = ["Order No."], inplace=True)
-
-        df = df[df['Order No.'].str.contains('[Cancelled]') == False]
+        df.dropna(subset = ["Order_No"], inplace=True)
 
 
         df.columns.values[5] = 'Item Qty' 
         df.columns.values[8] = 'RM Qty'
 
-        df = df[['Order No.','outlet','Order Type','Payment Type','Order Date','Item Name','Item Qty','Total Selling Price','RAWMATERIAL','RM Qty','Unit']]
+        df = df[['Order_No','outlet','Order Type','Payment Type','Order Date','Item Name','Item Qty','Total Selling Price','RAWMATERIAL','RM Qty','Unit']]
 
 
-        df['Total Selling Price'] = df['Total Selling Price'].replace("-",0)
-        df['Total Selling Price'] = df['Total Selling Price'].replace(np.nan,0)
+        df['Total Selling Price'] = df['Total Selling Price'].replace("-",'0')
+        df['Total Selling Price'] = df['Total Selling Price'].replace(np.nan,'0')
+        df['Total Selling Price'] = df['Total Selling Price'].astype(float)
 
-        
+        df['outlet'] = df['outlet'].replace('Andheri-W','Andheri West')
+
+        df.to_csv('C:\\Users\\a\\Downloads\\order_wise_cunsumptoin.csv', index = False)
         return df
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
