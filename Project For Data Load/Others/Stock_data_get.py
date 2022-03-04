@@ -1,6 +1,7 @@
 import psycopg2
 import time
 import getpass
+import pandas as pd
 
 
 # declaring variable...
@@ -30,7 +31,12 @@ def login_detail():
 def postgresql_check():
 
     global value
-    last_month = input("\nEnter a last months : ").title()[:3]
+    start_month = str(input("Start Month : "))
+    start_date = str(input("Start date : "))
+    Start_time = f"2022-{start_date}-{start_month} 00:00"
+    End_month = str(input("End Month : "))
+    End_date = str(input("End date : "))
+    End_time = f"2022-{End_date}-{End_month} 23:59"
     conn = None
     cur = None
 
@@ -44,31 +50,35 @@ def postgresql_check():
             )
         cur = conn.cursor()
 
-        select_date = '''SELECT DISTINCT(date) FROM delivery_report WHERE months = %s ORDER BY date desc'''
-        month = [last_month]
 
-        cur.execute(select_date, month)
+        select_outlet = '''SELECT 
+                                stock_data.rawmaterial AS "Raw Materail",
+                                sum(stock_data.existing_stock) AS "Existing Stock",
+                                stock_data.outlet AS "Outlet",
+                                rm_category.category
+                            FROM 
+                                stock_data
+                            JOIN 
+                                rm_category
+                                ON
+                                rm_category.name = stock_data.rawmaterial
+                            WHERE
+                                stock_data.time >= %s AND stock_data.time <= %s
+                            group by
+                                stock_data.rawmaterial,
+                                stock_data.outlet,
+                                rm_category.category
+                            ORDER BY
+                                stock_data.outlet,stock_data.rawmaterial;'''
+
+
+        cur.execute(select_outlet,[Start_time , End_time])
         Result=cur.fetchall()
+        df = pd.DataFrame(Result)
 
-        for x in Result:
-            value = str(x)[1:3]
-            print(f'Last Updated date of {str(month)[2:5]} month : {value}')
-            break
-        value = value[:-1]
-        select_outlet = '''SELECT DISTINCT(outlet) FROM delivery_report WHERE months = %s AND date = %s ORDER BY outlet'''
-        outlet = [last_month, value]
+        df.columns = ['Raw Materail', "Existing Stock", "Outlet", "Category"]
 
-        cur.execute(select_outlet, outlet)
-        Result=cur.fetchall()
-        print()
-        print()
-        counting = 1
-        print("Order Recorded by outlets...")
-        for x in Result:
-            temp_outlet = str(x)[2:]
-            temp_outlet = temp_outlet[:-3]
-            print(f'{counting} {temp_outlet}')
-            counting = counting + 1
+        df.to_csv(f"C:\\Users\\a\\Downloads\\stock_data_2022_{start_month}_{start_date}.csv" , index = False)
 
         conn.commit()
 
