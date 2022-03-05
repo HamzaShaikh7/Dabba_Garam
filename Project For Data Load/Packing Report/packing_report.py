@@ -49,6 +49,7 @@ def import_data():
 
 def creating_outlets(df):
     df = df
+    df = df.copy()
     
     # create a list of our conditions
     conditions = [
