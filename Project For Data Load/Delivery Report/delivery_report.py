@@ -49,7 +49,7 @@ def import_data():
 
 
 def cleaning_data(df):
-    df = df
+    df = df.copy()
 
     temp_df_01 = df["Delivered at"].str.split("-", n = 3, expand = True)
     df["Year"]= temp_df_01[0]

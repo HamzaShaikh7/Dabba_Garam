@@ -84,6 +84,7 @@ def add_outlet(df,outlet):
 def cleaning_data(df):
 
         df = df
+        df = df.copy()
         ls = ['Order No.',
                 'Client OrderID',
                 'Order Type',
