@@ -29,9 +29,13 @@ def login_detail():
 
 def postgresql_check():
 
+    Month_value = str(input("Enter a months : "))
+    Date_value = str(input("Enter a Date : "))
     global value
     conn = None
     cur = None
+
+    final_date = f"{2022}-{Month_value}-{Date_value}"
 
     try:
         conn = psycopg2.connect(
@@ -89,7 +93,7 @@ def postgresql_check():
                         ON
                         order_summary.client_orderid  = delivery_report.order_id
                     WHERE
-                        order_summary.date = '2022-03-01'
+                        order_summary.date = %s
                     GROUP BY
                         order_wise_cunsumption.outlet,
                         delivery_report.payment_mode,
@@ -99,7 +103,7 @@ def postgresql_check():
                     ORDER BY
                         order_wise_cunsumption.rawmaterial"""
 
-        cur.execute(select_outlet)
+        cur.execute(select_outlet,[final_date])
         df=cur.fetchall()
         
         df = pd.DataFrame(df)
