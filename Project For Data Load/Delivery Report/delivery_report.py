@@ -51,7 +51,7 @@ def import_data():
 def cleaning_data(df):
     df = df.copy()
 
-    temp_df_01 = df["Delivered at"].str.split("-", n = 3, expand = True)
+    temp_df_01 = df["Created at"].str.split("-", n = 3, expand = True)
     df["Year"]= temp_df_01[0]
     df["Months"]= temp_df_01[1]
     df['Date_tmp'] = temp_df_01[2]
