@@ -143,6 +143,10 @@ def cleaning_data(df):
                 'Created',
                 'outlet']]
 
+        download_location = str(input("Enter a file download loaction : "))
+
+        df.to_csv(f"{download_location}//delivery_report.csv", index = False)
+
         return df
 
 #---------------------------------------------------------------------------------------------------------------------------------

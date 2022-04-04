@@ -120,6 +120,10 @@ def cleaning_data(df):
 
         df = df[df["Order_No"].str.contains("Cancelled") != True]
 
+        download_location = str(input("Enter a file download loaction : "))
+
+        df.to_csv(f"{download_location}//delivery_report.csv", index = False)
+
         return df
 
 #------------------------------------------------------------------------------------------------------------------------------------------------

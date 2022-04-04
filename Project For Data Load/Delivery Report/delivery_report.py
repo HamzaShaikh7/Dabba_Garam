@@ -187,6 +187,10 @@ def cleaning_data(df):
             'TD_dip_slo',
             'TD_Rpick_dip']]
 
+    download_location = str(input("Enter a file download loaction : "))
+
+    df.to_csv(f"{download_location}//delivery_report.csv", index = False)
+
     return df
 
 #---------------------------------------------------------------------------------------------------------------------

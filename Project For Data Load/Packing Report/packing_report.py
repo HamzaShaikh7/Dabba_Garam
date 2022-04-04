@@ -174,6 +174,10 @@ def cleaning_data(dfi):
     # Getting usefull data...
     df = df[['Order ID','Restaurant ID','Accepted Time','Mark Ready Time','Date','Year','Months','Time Diff','Outlet','Time Range']]
 
+    download_location = str(input("Enter a file download loaction : "))
+
+    df.to_csv(f"{download_location}//delivery_report.csv", index = False)
+
     return df
 
 
